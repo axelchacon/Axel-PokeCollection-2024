@@ -1,39 +1,42 @@
 import { useState } from "react";
+import Input from "./components/input";
 
 ///añadiendo estilos emotions y renderiando el login de manera básica sin usar los Hooks de React
 function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
   function handleSubmit(event) {
     event.preventDefault();
-    console.log({ email, password });
+    console.log(formData);
+  }
+  //handleChange = (e) =>setFormData({ ...formData, password: e.target.value })
+  function handleChange(event) {
+    const { name, value } = event.target;
+    //console.log({name, value}) ==== name:email, value:1234
+    setFormData({ ...formData, [name]: value });
   }
   return (
     <>
       <h1>Welcome to Poke Collection</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="example@mail.com"
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="******"
-          />
-        </div>
+        <Input
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleChange}
+          placeholder="example@mail.com"
+          label="Email"
+        />
+        <Input
+          name="password"
+          type="password"
+          value={formData.password}
+          onChange={handleChange}
+          placeholder="******"
+          label="Password"
+        />
         <button type="submit">Login</button>
       </form>
     </>
