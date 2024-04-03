@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Input from "./input";
-import { createUser } from "./services/user-service";
 
-function SingupForm() {
+function SingupForm({ onSignup }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -12,9 +11,7 @@ function SingupForm() {
   function handleSubmit(event) {
     event.preventDefault();
     //console.log(formData); //{email: 'eatable1@mail.com', password: 'eatable1', first_name: 'axel', last_name: 'chacon'}
-    createUser(formData)
-      .then((user) => console.log(user))
-      .catch((error) => console.log(error));
+    onSignup(formData);
   }
   //handleChange = (e) =>setFormData({ ...formData, password: e.target.value })
   function handleChange(event) {

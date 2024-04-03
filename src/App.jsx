@@ -19,10 +19,15 @@ function App() {
       .then((u) => setUser(u))
       .catch((error) => console.log(error));
   }
+  function handleSignup(userData) {
+    createUser(userData)
+      .then((user) => setUser(user))
+      .catch((error) => console.log(error));
+  }
   return user ? (
     <AuthenticatedApp />
   ) : (
-    <UnathenticatedApp onLogin={handleLogin} />
+    <UnathenticatedApp onLogin={handleLogin} onSignup={handleSignup} />
   );
 }
 
