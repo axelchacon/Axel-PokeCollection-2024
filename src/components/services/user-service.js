@@ -9,3 +9,10 @@ export function createUser(userData) {
     return usuarios;
   });
 }
+export function getUser() {
+  return apiFetch("/profile").then((userData) => {
+    const { _token, ...user } = userData;
+    // sessionStorage.setItem(tokenKey, token);
+    return user;
+  });
+}
