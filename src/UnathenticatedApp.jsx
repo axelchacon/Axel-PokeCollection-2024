@@ -4,7 +4,7 @@ import { colors } from "./styles/colors";
 import LoginForm from "./components/login-form";
 import SingupForm from "./components/Singup-Form";
 
-function UnathenticatedApp() {
+function UnathenticatedApp({ onLogin }) {
   const [showLogin, setShowLogin] = useState(true);
   function handleClick(event) {
     event.preventDefault();
@@ -22,7 +22,7 @@ function UnathenticatedApp() {
   return (
     <>
       <h1>Welcome to Poke Collection</h1>
-      {showLogin ? <LoginForm /> : <SingupForm />}
+      {showLogin ? <LoginForm onLogin={onLogin} /> : <SingupForm />}
       <CustomLink onClick={handleClick}>
         {showLogin ? "Create Account" : "Log in"}
       </CustomLink>
