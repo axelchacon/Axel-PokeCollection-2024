@@ -9,13 +9,27 @@ import { colors } from "../styles/colors";
 import { typography } from "../styles/typography";
 function SearchPage() {
   const [query, setQuery] = useState("");
-  const [pokemon, setPokemon] = useState(null);
+  const [state, setState] = useState({
+    status: "idle", // success, error,pending
+    data: null,
+    error: null,
+  });
+  const { status, data: pokemon, error } = state;
   function handleSubmit(e) {
     e.preventDefault();
     // console.log(query);
+    if (query.length === 0) return;
     getPokemon(query)
-      .then((datpokemon) => setPokemon(datpokemon))
-      .catch((error) => console.log(error));
+      .then((datpokemon) =>
+        setState({ status: "success", data: datpokemon, error: null })
+      )
+      .catch((error) =>
+        setState({
+          status: "error",
+          data: null,
+          error: "El pokemon no existe! Intenta de nuevo",
+        })
+      );
     console.log(pokemon);
   }
   function formatId(id) {
@@ -75,7 +89,10 @@ function SearchPage() {
         />
         <button>Search</button>
       </form>
-      {pokemon ? <PokemonData dataPokemon={pokemon} /> : "Ready to search"}
+
+      {status === "idle" && "Ready to search"}
+      {status === "success" && <PokemonData dataPokemon={pokemon} />}
+      {status === "error" && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 }
