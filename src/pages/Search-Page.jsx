@@ -1,10 +1,16 @@
 import { useState } from "react";
 import Input from "../components/input";
+import { getPokemon } from "../components/services/pokeapi-service";
 function SearchPage() {
   const [query, setQuery] = useState("");
+  const [pokemon, setPokemon] = useState(null);
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(query);
+    // console.log(query);
+    getPokemon(query)
+      .then((datpokemon) => setPokemon(datpokemon))
+      .catch((error) => console.log(error));
+    console.log(pokemon);
   }
   return (
     <form onSubmit={handleSubmit}>

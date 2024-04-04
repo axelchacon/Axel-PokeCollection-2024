@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { getUser } from "./components/services/user-service";
+import { createUser, getUser } from "./components/services/user-service";
 import AuthenticatedApp from "./AuthenticatedApp";
 import UnathenticatedApp from "./UnathenticatedApp";
 import { login } from "./components/services/auto-sevice";
