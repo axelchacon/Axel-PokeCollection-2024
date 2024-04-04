@@ -12,16 +12,38 @@ function SearchPage() {
       .catch((error) => console.log(error));
     console.log(pokemon);
   }
+  function formatId(id) {
+    id = String(id);
+    return id.length < 2 ? `#00${id}` : id.length < 3 ? `#0${id}` : `#${id}`;
+  }
+  function PokemonData({ dataPokemon }) {
+    return (
+      <div>
+        <h2>{dataPokemon.name}</h2>
+        <p>{formatId(dataPokemon.id)}</p>
+        <img
+          src={dataPokemon.sprites.other["official-artwork"].front_default}
+          alt={dataPokemon.name}
+        />
+        {dataPokemon.types.map((element) => (
+          <p key={element.slot}>{element.type.name}</p>
+        ))}
+      </div>
+    );
+  }
   return (
-    <form onSubmit={handleSubmit}>
-      <Input
-        name="query"
-        placeholder="pokemon name"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
-      <button>Search</button>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <Input
+          name="query"
+          placeholder="pokemon name"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+        <button>Search</button>
+      </form>
+      {pokemon ? <PokemonData dataPokemon={pokemon} /> : "Ready to search"}
+    </div>
   );
 }
 
